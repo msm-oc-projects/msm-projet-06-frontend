@@ -1,0 +1,7 @@
+services:
+  olympic-participation-tracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
