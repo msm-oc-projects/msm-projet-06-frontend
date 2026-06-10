@@ -1,7 +1,26 @@
 services:
+  # Application Angular compilée pendant le build de l'image puis servie par
+  # NGINX. Aucun backend ni service annexe n'est nécessaire dans cette stack.
   olympic-participation-tracker:
     build:
+      # Le contexte correspond à la racine du projet frontend.
       context: .
       dockerfile: Dockerfile
+
+    # Le port 80 du conteneur est publié sur le port 80 de la machine.
+    # L'application devient donc accessible sur http://localhost.
     ports:
       - "80:80"
+
+    # Docker contrôle directement la page d'accueil dans le conteneur. `wget`
+    # est fourni par BusyBox dans l'image nginx:alpine.
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+    # Redémarre le service après un incident ou un redémarrage de Docker, mais
+    # respecte un arrêt manuel explicite.
+    restart: unless-stopped

@@ -1,0 +1,12 @@
+# Fichiers interprétés dans des environnements Linux ou des conteneurs.
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+.dockerignore text eol=lf
+nginx/*.conf text eol=lf
+
+# Sources et documentation normalisées entre Windows, Linux et la CI.
+*.json text eol=lf
+*.md text eol=lf
+*.ts text eol=lf
+*.scss text eol=lf
+.gitattributes text eol=lf

@@ -1,13 +1,23 @@
+# Métadonnées des outils de versionnement et de l'éditeur.
 .git
 .gitignore
 .vscode
+
+# Caches et dépendances locales : ils sont recréés par `npm ci` dans l'image.
 .angular
 node_modules
+.npm
+
+# Artefacts produits localement par les builds et les tests.
 dist
 coverage
-.npm
+reports
+
+# Journaux des gestionnaires de paquets.
 npm-debug.log
 yarn-error.log
+
+# Fichiers utiles au développement, mais inutiles dans le contexte de build.
 Dockerfile
 docker-compose.yml
 README.md
