@@ -1,6 +1,9 @@
 {
-  "name": "@oc-expert-devops-training/olympic-games-starter",
+  "name": "@msm-oc-projects/olympic-games-starter",
   "version": "1.1.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

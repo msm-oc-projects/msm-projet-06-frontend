@@ -9,4 +9,6 @@ nginx/*.conf text eol=lf
 *.md text eol=lf
 *.ts text eol=lf
 *.scss text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
 .gitattributes text eol=lf

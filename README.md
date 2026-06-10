@@ -220,39 +220,34 @@ Si le build ne trouve pas les fichiers Angular, vérifiez simultanément :
 - le sous-dossier `browser` produit par le builder ;
 - le chemin de la commande `COPY --from=build` dans le `Dockerfile`.
 
-### Publication dans le registre GitLab
+### Publication dans GitHub Packages
 
-Pour publier l'application dans un registre GitLab :
+Le paquet npm utilise le scope de l'organisation GitHub :
 
-1. **Modifiez le scope de l'application.**
+```json
+{
+  "name": "@msm-oc-projects/olympic-games-starter"
+}
+```
 
-   Adaptez-le à votre nouveau groupe GitLab. Par exemple, si l'URL du dépôt est
-   `https://gitlab.com/your-gitlab-group-slug/olympic-games-starter`, remplacez
-   le nom de l'application par
-   `@your-gitlab-group-slug/olympic-games-starter` :
+Le workflow GitHub Actions publie automatiquement le paquet après la création
+d'une version par semantic-release. Il utilise `GITHUB_TOKEN` avec la
+permission `packages: write`.
 
-   ```json
-   {
-     "name": "@your-gitlab-group-slug/olympic-games-starter",
-     ...
-   }
-   ```
+Pour une publication manuelle, créez un fichier `.npmrc` local :
 
-2. **Créez un fichier `.npmrc` avec le contenu suivant :**
+```ini
+@msm-oc-projects:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+```
 
-   ```ini
-   @your-gitlab-group-slug:registry=https://gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/packages/npm/
-   //gitlab.com/api/v4/projects/${GITLAB_PROJECT_ID}/packages/npm/:_authToken="${GITLAB_TOKEN}"
-   ```
+Définissez ensuite un Personal Access Token GitHub autorisé à écrire dans les
+packages :
 
-3. **Définissez les variables d'environnement :**
-   - `GITLAB_PROJECT_ID` : identifiant du projet GitLab ;
-   - `GITLAB_TOKEN` : jeton de déploiement GitLab.
+```bash
+export NODE_AUTH_TOKEN=votre-token
+npm ci
+npm publish
+```
 
-4. **Exécutez la commande de publication :**
-
-   ```bash
-   npm publish
-   ```
-
-Le paquet est alors publié dans le registre GitLab.
+Le fichier `.npmrc` contenant un token ne doit jamais être versionné.
