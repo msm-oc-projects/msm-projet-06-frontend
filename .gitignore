@@ -34,9 +34,13 @@ yarn-error.log
 .sass-cache/
 /connect.lock
 /coverage
+/reports
 /libpeerconnection.log
 testem.log
 /typings
+
+# Semantic Release
+.release-version
 
 # System files
 .DS_Store
